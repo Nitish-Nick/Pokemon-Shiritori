@@ -722,16 +722,21 @@ body{
 
 .disclaimer {
   position: fixed;
-  bottom: 5px;
+  bottom: 0;
   left: 0;
   width: 100%;
+
+  padding: 3px 10px;
 
   text-align: center;
 
   font-family: "Mozilla Headline", sans-serif;
   font-size: 11px;
-  color: white;
-  opacity: 0.55;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(5px);
 
   z-index: 10;
 }
