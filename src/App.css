@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Headline:wght@200..700&display=swap');
+
+.background{
+  background: url("./assets/BG.jpg");
+  position: fixed;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.pokemon-card {
+  position: relative;
+  backdrop-filter: blur(8px);
+  width: 300px;
+  margin: 20px auto;
+  padding: 16px;
+
+  border: 2px solid white;
+  border-radius: 35px;
+
+  text-align: center;
+}
+
+.pokemon-img {
+  backdrop-filter: blur(8px);
+  margin: 20px auto;
+  padding: 16px;
+
+  border: 2px solid white;
+  border-radius: 35px;
+
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-top: 45px;
+  width: 120px;
+  height: 120px;
+}
+
+.pokemon-name {
+  backdrop-filter: blur(8px);
+  margin: 20px auto;
+  padding: 16px;
+  border: 2px solid white;
+  text-align: center;
+  width: 260px;
+  margin-top: 10px;
+  border-radius: 15px;
+  font-family: "Mozilla Headline", sans-serif;
+  color: aqua;
+  font-size: 30px;
+}
+
+.pokeID {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  backdrop-filter: blur(8px);
+  width: 50px;
+  height: 25px;
+  padding: 5px;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding-top: 10px;
+  color: aqua;
+  text-align: center;
+}
