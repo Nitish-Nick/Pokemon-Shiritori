@@ -171,6 +171,11 @@ function App() {
             onClose={() => setSelectedPokemon(null)}
         />
       </div>
+      <footer className="disclaimer">
+        Pokémon and Pokémon character names are trademarks of Nintendo,
+        Game Freak, and The Pokémon Company. This is a fan-made project
+        and is not affiliated with or endorsed by them.
+      </footer>
     </>
   );
 }

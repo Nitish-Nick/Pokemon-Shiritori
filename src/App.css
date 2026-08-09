@@ -718,3 +718,20 @@ body{
 .cry-button:active {
   transform: scale(0.95);
 }
+
+
+.disclaimer {
+  position: fixed;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+
+  text-align: center;
+
+  font-family: "Mozilla Headline", sans-serif;
+  font-size: 11px;
+  color: white;
+  opacity: 0.55;
+
+  z-index: 10;
+}
