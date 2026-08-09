@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import PokeHistoryList from "./components/PokeHistoryList";
 import ScoreBoard from "./components/ScoreBoard";
 import GameStatus from "./components/GameStatus";
+import PokemonCard from "./components/PokemonCard";
+import PokemonDetails from "./components/PokemonDetails";
 import "./App.css"
 
 function App() {
@@ -12,9 +14,14 @@ function App() {
   const [message, setMessage] = useState("");
   const [requiredLetter, setRequiredLetter] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  
   // const [pnum, setPnum] = useState(0);
 
+  const lastPokemon = pokeHistory[pokeHistory.length-1];
+
   async function checkSubmit() {
+    event.preventDefault();
     // console.log(pokeHistory);
     const pokemon = pokeName
     .trim()
@@ -61,7 +68,12 @@ function App() {
       {
         id: pokeData.id,
         name: pokeData.name,
-        sprite: pokeData.sprites.front_default
+        sprite: pokeData.sprites.front_default,
+        types: pokeData.types,
+        height: pokeData.height,
+        weight: pokeData.weight,
+        abilities: pokeData.abilities,
+        cry: pokeData.cries.latest
       }
     ]);
     setRequiredLetter(nextLetter);
@@ -102,36 +114,62 @@ function App() {
     return response.json();
   }
 
+  const filteredHistory = pokeHistory.filter((pokemon) =>
+    pokemon.name.startsWith(pokeName.trim().toLowerCase())
+  );
+
   return (
     <>
       <div className="background"></div>
-      <div className="screen">
-        <h1>Pokemon Shiritori</h1>
+      <div className="app-container">
+        <div className="top-section">
+          <div className="left-panel">
+            <h1 id="Game-Title">Pokemon Shiritori</h1>
 
-        <h3>Welcome Trainer!</h3>
-        {/* <h3>Pokemon Entered: {pokeName} </h3> */} 
-        {/* <h3>Pokemon loaded: {pokeList.length} </h3>  */}
-        {/* <input onChange={(e) => setPnum(e.target.value)}/> */}
-        {/* <h3>First Pokemon: {pokeList[pnum]} </h3>  */}
+            <h3>Welcome, Trainer!</h3>
+            {/* <h3>Pokemon Entered: {pokeName} </h3> */} 
+            {/* <h3>Pokemon loaded: {pokeList.length} </h3>  */}
+            {/* <input onChange={(e) => setPnum(e.target.value)}/> */}
+            {/* <h3>First Pokemon: {pokeList[pnum]} </h3>  */}
 
-        <p>
-          Test your Pokemon skills!
-        </p>
-        <ScoreBoard score={score} gameOver = {gameOver}/>
-        <GameStatus message={message} gameOver={gameOver} requiredLetter={requiredLetter}/>
+            <p>Test your Pokemon skills!</p>
+            <ScoreBoard score={score} gameOver = {gameOver}/>
+            <GameStatus message={message} gameOver={gameOver} requiredLetter={requiredLetter}/>
 
-        <input value={pokeName} disabled={gameOver} onChange={(e) => setPokeName(e.target.value)}/>
-      
-        <button disabled={gameOver} onClick={checkSubmit}>
-          Enter!
-        </button>
-        {gameOver && 
-          <button onClick={restartGame}>
-            Restart
-          </button>
-        }
-
-        <PokeHistoryList pokeHistory = {pokeHistory}/>
+            <div className="input-section">
+              <form onSubmit={checkSubmit} className="input-section">
+                <input id="InputName" value={pokeName} disabled={gameOver} onChange={(e) => setPokeName(e.target.value)}/>
+              
+                <button id="Enter" disabled={gameOver}>
+                  Enter!
+                </button>
+              {gameOver && 
+                <button id="Restart" type = "button" onClick={restartGame}>
+                  Restart!
+                </button>
+              }
+            </form>
+          </div>
+          </div>
+          <div className="right-panel">
+            {/* <h3>Last Pokemon:</h3> */}
+            <PokemonCard 
+              pokemon = {lastPokemon}
+              onClick={() => setSelectedPokemon(lastPokemon)}
+            />
+          </div>
+        </div>
+        <div className="bottom-section">
+          <PokeHistoryList 
+            pokeHistory = {filteredHistory} 
+            pokeName = {pokeName}
+            onPokemonClick = {setSelectedPokemon}
+          />
+        </div>
+        <PokemonDetails
+            pokemon={selectedPokemon}
+            onClose={() => setSelectedPokemon(null)}
+        />
       </div>
     </>
   );

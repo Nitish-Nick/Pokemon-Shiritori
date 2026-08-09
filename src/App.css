@@ -1,5 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Mozilla+Headline:wght@200..700&display=swap');
 
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  overflow: hidden;
+}
+
+#Game-Title{
+  font-size: clamp(50px, 5vw, 75px);
+	font-family: "Black Ops On", sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+	background: url("./assets/bg.gif");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-clip: text;
+  background-clip: text;
+	-webkit-text-stroke: 1px white;
+	-webkit-text-fill-color: transparent;
+	margin: 15px 0;
+  line-height: 1;
+  filter:
+    drop-shadow(3px 3px 0px #2b3a8f)
+    drop-shadow(6px 6px 0px rgba(0, 0, 0, 0.35));
+}
+
+
+@keyframes pokemonAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.85);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .background{
   background: url("./assets/BG.jpg");
   position: fixed;
@@ -15,15 +63,34 @@
 
 .pokemon-card {
   position: relative;
-  backdrop-filter: blur(8px);
+  
   width: 300px;
   margin: 20px auto;
   padding: 16px;
 
-  border: 2px solid white;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+
+  border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: 35px;
 
   text-align: center;
+}
+
+.pokemon-card {
+    cursor: pointer;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+    border-color: aqua;
+    background-color: rgba(0, 255, 255, 0.1);
 }
 
 .pokemon-img {
@@ -61,11 +128,593 @@
   left: 15px;
   backdrop-filter: blur(8px);
   width: 50px;
-  height: 25px;
+  height: 30px;
   padding: 5px;
   border: 2px solid white;
   border-radius: 15px;
-  padding-top: 10px;
-  color: aqua;
+  padding-top: 5px;
+  color: rgb(13, 5, 86);
   text-align: center;
+}
+
+.app-container{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.top-section {
+  flex: 6 1 0;
+  display: flex;
+  min-height: 0;
+}
+
+.left-panel{
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  font-family: "Mozilla Headline", sans-serif;
+}
+
+.left-panel h1{
+  margin: 15px;
+}
+.left-panel h3{
+  font-family: "Mozilla Headline", sans-serif;
+  font-size: 24px;
+  margin: 0;
+}
+
+.left-panel p{
+  font-family: "Mozilla Headline", sans-serif;
+  font-size: 18px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.right-panel{
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-section{
+  flex: 4 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  backdrop-filter: blur(8px);
+  border: 2px solid white;
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.bottom-section::-webkit-scrollbar{
+  display: none;
+}
+
+.bottom-section h3 {
+  font-family: "Mozilla Headline", sans-serif;
+  font-size: 22px;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 10px 0;
+  margin: 0 0 10px;
+  backdrop-filter: blur(8px);
+}
+
+.input-section{
+  display: flex;
+  gap: 10px;
+  width: 80%;
+  margin-top: 10px;
+}
+#InputName{
+  flex: 1;
+  min-width: 0;
+  padding: 12px 15px;
+
+  border: 2px solid white;
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+
+  color: white;
+  font-family: "Mozilla Headline", sans-serif;
+  font-size: 18px;
+
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+#InputName:focus {
+  border-color: aqua;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+#Enter{
+  width: 100px;
+
+  border: 2px solid white;
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+
+  font-family: "Mozilla Headline", sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
+}
+#Enter:hover {
+  background: rgba(68, 246, 246, 0.2);
+  border-color: aqua;
+
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+#Enter:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 4px rgba(0, 255, 255, 0.3);
+}
+
+#Enter:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+#Restart{
+  width: 100px;
+
+  border: 2px solid rgba(243, 168, 39, 0.8);
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffd166;
+
+  font-family: "Mozilla Headline", sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
+}
+
+#Restart:hover {
+  background: rgba(147, 6, 6, 0.15);
+  border-color: #ffd166;
+  color: gold;
+
+  box-shadow: 0 0 10px rgba(230, 87, 16, 0.4);
+}
+
+#Restart:active {
+  transform: scale(0.95);
+
+  box-shadow: 0 0 4px rgba(255, 190, 80, 0.3);
+}
+
+.history-grid{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.history-grid li {
+  width: 110px;
+  min-height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+
+  padding: 8px;
+
+  font-family: "Mozilla Headline", sans-serif;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  
+  animation: pokemonAppear 0.35s ease-out;
+}
+
+.history-grid li:hover {
+  transform: translateY(-5px) scale(1.03);
+
+  border-color: aqua;
+
+  background: rgba(0, 255, 255, 0.12);
+
+  box-shadow:
+    0 0 8px rgba(0, 255, 255, 0.3),
+    0 0 18px rgba(0, 255, 255, 0.15);
+}
+
+.history-grid li img {
+  width: 70px;
+  height: 70px;
+  transition: transform 0.2s ease;
+  image-rendering: pixelated;
+}
+
+.history-grid li:hover img {
+  transform: scale(1.25);
+}
+
+.score {
+  color: aqua;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+  margin: 0;
+}
+
+.status-success {
+  color: #00ffff;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+.status-error {
+  color: #ff6b6b;
+  text-shadow: 0 0 8px rgba(255, 80, 80, 0.4);
+}
+
+.game-over {
+  margin: 0;
+  color: #ff6b6b;
+  font-size: 30px;
+  letter-spacing: 2px;
+
+  text-shadow:
+    0 0 5px rgba(255, 80, 80, 0.6),
+    0 0 15px rgba(255, 80, 80, 0.3);
+}
+
+.requiredLetter {
+  margin: 0;
+  color: #efff11;
+  font-size: 30px;
+  letter-spacing: 2px;
+
+  text-shadow:
+    0 0 5px rgba(255, 74, 3, 0.6),
+    0 0 15px rgba(255, 12, 12, 0.3);
+}
+
+.history-name{
+  text-transform: uppercase;
+  font-size: 14px;
+  color: white;
+
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease,
+    font-size 0.2s ease;
+}
+
+.history-grid li:hover .history-name {
+  color: aqua;
+  font-size: 12px;
+  text-shadow:
+    0 0 6px rgba(0, 255, 255, 0.5);
+}
+
+/* Pokemon Details Section */
+
+.details-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(61, 61, 61, 0.55);
+    backdrop-filter: blur(5px);
+
+    z-index: 1000;
+    animation: overlayin .35s ease-out;
+    cursor: pointer;
+}
+
+.details-overlay.closing {
+    animation: overlayOut 0.3s ease forwards;
+}
+
+@keyframes overlayIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes overlayOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.pokemon-details {
+    position: relative;
+
+    width: 360px;
+    max-width: 80vw;
+
+    padding: 30px;
+    text-transform: capitalize;
+
+    background: rgba(52, 52, 52, 0.5);
+    backdrop-filter: blur(18px);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+
+    color: white;
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5);
+
+    animation: detailsIn .35s ease-out;
+    cursor: default;
+}
+
+.pokemon-details.closing {
+  animation: detailsOut 0.3s ease forwards;
+}
+
+@keyframes detailsIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes detailsOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+}
+.pokemon-details img {
+    width: 160px;
+    height: 160px;
+    border: 1px solid white;
+    border-radius: 35px;
+    margin: 10px auto;
+    image-rendering: pixelated;
+}
+
+#CloseBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  backdrop-filter: blur(8px);
+  width: 80px;
+  height: 30px;
+  padding: 5px;
+  border: 2px solid rgb(255, 0, 0);
+  border-radius: 15px;
+  padding-top: 4px;
+  color: rgb(255, 0, 0);
+  text-align: center;
+  background: #121518;
+  cursor: pointer;
+  font-family: "Mozilla Headline", sans-serif;
+  transition: all 0.2s ease;
+}
+#CloseBtn:hover {
+    background: rgba(255, 80, 80, 0.5);
+}
+#CloseBtn:active {
+  transform: scale(0.95);
+}
+
+.pokeID2 {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  backdrop-filter: blur(8px);
+  width: 80px;
+  height: 30px;
+  padding: 5px;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding-top: 3px;
+  color: rgb(254, 254, 254);
+  text-align: center;
+}
+
+.pokemon-types {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0 20px;
+}
+
+.type-badge {
+    padding: 6px 14px;
+    font-family: "Mozilla Headline", sans-serif;
+    border-radius: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
+
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.type-psychic {
+    background: rgba(255, 80, 150, 0.45);
+}
+
+.type-fire {
+    background: rgba(255, 80, 20, 0.45);
+}
+
+.type-water {
+    background: rgba(40, 120, 255, 0.45);
+}
+
+.type-grass {
+    background: rgba(50, 180, 80, 0.45);
+}
+
+.type-electric {
+    background: rgba(255, 220, 30, 0.45);
+}
+
+.type-ice {
+    background: rgba(100, 220, 255, 0.45);
+}
+
+.type-fighting {
+    background: rgba(180, 60, 40, 0.45);
+}
+
+.type-poison {
+    background: rgba(150, 60, 180, 0.45);
+}
+
+.type-ground {
+    background: rgba(180, 140, 70, 0.45);
+}
+
+.type-flying {
+    background: rgba(130, 170, 255, 0.45);
+}
+
+.type-bug {
+    background: rgba(130, 180, 50, 0.45);
+}
+
+.type-rock {
+    background: rgba(150, 130, 90, 0.45);
+}
+
+.type-ghost {
+    background: rgba(100, 70, 150, 0.45);
+}
+
+.type-dragon {
+    background: rgba(90, 70, 200, 0.45);
+}
+
+.type-dark {
+    background: rgba(50, 50, 60, 0.65);
+}
+
+.type-steel {
+    background: rgba(130, 140, 160, 0.5);
+}
+
+.type-fairy {
+    background: rgba(240, 130, 200, 0.45);
+}
+
+.type-normal {
+    background: rgba(150, 150, 140, 0.45);
+}
+
+.pokemon-stats {
+    margin-top: 10px;
+}
+
+.pokemon-stats p {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+
+    padding: 5px 0;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+
+    text-align: left;
+}
+
+.pokemon-stats p:last-child {
+    border-bottom: none;
+}
+
+.pokemon-stats strong {
+    color: aqua;
+}
+
+.cry-button {
+    margin-top: 15px;
+
+    padding: 10px 20px;
+    padding-top: 8px;
+    border: 2px solid white;
+    border-radius: 12px;
+
+    background: rgba(0, 0, 0, 0.35);
+    color: white;
+
+    font-family: "Mozilla Headline", sans-serif;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cry-button:hover {
+    background: rgba(68, 246, 246, 0.2);
+    transform: translateY(-2px);
+}
+
+.cry-button:active {
+  transform: scale(0.95);
 }

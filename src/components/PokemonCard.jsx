@@ -1,11 +1,11 @@
-function PokemonCard({pokemon}){
+function PokemonCard({pokemon, onClick}){
 
     if(!pokemon){
         return null;
     }
 
     return(
-        <div className = "pokemon-card">
+        <div className = "pokemon-card" onClick={onClick}>
             <div className="pokeID"> #{pokemon.id} </div>
             <img className="pokemon-img"
                 src={pokemon.sprite} 
